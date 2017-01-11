@@ -90,7 +90,7 @@ A step by step walkthrough to understanding how to create a plugin for Vagrant
                 got: false
 
            (compared using ==)
-         # ./spec/my_vagrant_plugin_spec.rb:9:in `block (2 levels) in <top (required)>'
+         # ./spec/my_vagrant_plugin_spec.rb:9:in \`block (2 levels) in <top (required)>'
 
     Finished in 0.01383 seconds (files took 0.08105 seconds to load)
     2 examples, 1 failure
@@ -107,3 +107,19 @@ A step by step walkthrough to understanding how to create a plugin for Vagrant
         expect(MyVagrantPlugin::VERSION).not_to be nil
       end
     end
+
+## Move gem version into Gemspec
+
+The default method for setting the gem version is not compatible with Vagrant conventions, and will create problems later when we call `Vagrant.plugin("2")`.
+
+* Delete `lib/my_vagrant_plugin/version.rb`
+* From `lib/my_vagrant_plugin.rb`, remove `require "my_vagrant_plugin/version"`
+* From `my_vagrant_plugin.gemspec`, remove `require "my_vagrant_plugin/version"`
+* From `spec/spec_helper.rb`, remote `"has a version number"` test
+* Change version in `my_vagrant_plugin.gemspec`
+
+    # Change from this
+    spec.version       = MyVagrantPlugin::VERSION
+
+    # To this
+    spec.version       = "0.1.0"

@@ -1,11 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'my_vagrant_plugin/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "my_vagrant_plugin"
-  spec.version       = MyVagrantPlugin::VERSION
+  spec.version       = "0.1.0"
   spec.authors       = ["Michael Pope"]
   spec.email         = ["mpope.cr@gmail.com"]
 
@@ -29,6 +28,4 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-
-
 end
