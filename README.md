@@ -123,3 +123,20 @@ The default method for setting the gem version is not compatible with Vagrant co
 
     # To this
     spec.version       = "0.1.0"
+
+## Change `MyVagrantPlugin` from a module to a class
+
+    # lib/my_vagrant_plugin.rb
+    require "vagrant"
+
+    class MyVagrantPlugin < Vagrant.plugin("2")
+      # Your code goes here...
+    end
+
+## Run empty test suite to make sure everything wired up correctly
+
+    $ bundle exec rspec
+    No examples found.
+
+    Finished in 0.00025 seconds (files took 0.28553 seconds to load)
+    0 examples, 0 failures
