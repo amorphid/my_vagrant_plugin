@@ -33,3 +33,16 @@ A step by step walkthrough to understanding how to create a plugin for Vagrant
     Using rspec 3.5.0
     Bundle complete! 4 Gemfile dependencies, 9 gems now installed.
     Use `bundle show [gemname]` to see where a bundled gem is installed.
+
+## Update Gemfile w/ Vagrant-specifc format
+
+    # Gemfile
+    source "https://rubygems.org"
+
+    group :development do
+      gem "vagrant", git: "https://github.com/mitchellh/vagrant.git"
+    end
+
+    group :plugins do
+      gem "my_vagrant_plugin", path: "."
+    end
