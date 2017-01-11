@@ -64,3 +64,38 @@ A step by step walkthrough to understanding how to create a plugin for Vagrant
       gem "rake", "~> 10.0"
       gem "rspec", "~> 3.0"
     end
+
+## Verify Rspec working properly (and delete failing test)
+
+    # run tests
+    $ bundle exec rspec
+    MyVagrantPlugin
+      has a version number
+      does something useful (FAILED - 1)
+
+    Failures:
+
+      1) MyVagrantPlugin does something useful
+         Failure/Error: expect(false).to eq(true)
+
+           expected: true
+                got: false
+
+           (compared using ==)
+         # ./spec/my_vagrant_plugin_spec.rb:9:in `block (2 levels) in <top (required)>'
+
+    Finished in 0.01383 seconds (files took 0.08105 seconds to load)
+    2 examples, 1 failure
+
+    Failed examples:
+
+    rspec ./spec/my_vagrant_plugin_spec.rb:8 # MyVagrantPlugin does something useful
+
+    # spec/my_vagrant_plugin_spec.rb (after deleting failing test)
+    require "spec_helper"
+
+    describe MyVagrantPlugin do
+      it "has a version number" do
+        expect(MyVagrantPlugin::VERSION).not_to be nil
+      end
+    end
