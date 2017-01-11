@@ -2,6 +2,14 @@
 
 A step by step walkthrough to understanding how to create a plugin for Vagrant
 
+## WARNING
+
+* This walkthrough may corrupt your Vagrant install (I accidentally nuked mine)
+* You'll be installing the [development gem on GitHub](I accidentally nuked mine), as mentioned in the [Vagrant plugin docs](https://www.vagrantup.com/docs/plugins/development-basics.html)
+* The development gem installs a vagrant executable, which blows away the executable created by the standard vagrant installer
+* You may also encounter conflicts with the vagrant data cached in `$HOME/.vagrant.d/`
+* For your development pleasure, I recommend developing your plugin in a Vagrant-less VM
+
 ## Create project skeleton with bundler
 
     $ bundle gem my_vagrant_plugin --test=rspec
