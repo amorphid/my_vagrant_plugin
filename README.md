@@ -4,7 +4,7 @@ A step by step walkthrough to understanding how to create a plugin for Vagrant
 
 ## Create project skeleton with bundler
 
-    $ bundle gem my_vagrant_plugin
+    $ bundle gem my_vagrant_plugin --test=rspec
     $ cd my_vagrant_plugin
     $ git add .
     $ git commit -m "Create initial commit"
@@ -45,4 +45,22 @@ A step by step walkthrough to understanding how to create a plugin for Vagrant
 
     group :plugins do
       gem "my_vagrant_plugin", path: "."
+    end
+
+## Move development dependencies to Gemfile
+
+    # remove from Gemspec
+    spec.add_development_dependency "bundler", "~> 1.13"
+    spec.add_development_dependency "rake", "~> 10.0"
+    spec.add_development_dependency "rspec", "~> 3.0"
+
+    # add to ':plugins' group in Gemfile
+    group :plugins do
+      # existing plugins
+      gem "my_vagrant_plugin", path: "."
+
+      # new plugins
+      gem "bundler", "~> 1.13"
+      gem "rake", "~> 10.0"
+      gem "rspec", "~> 3.0"
     end

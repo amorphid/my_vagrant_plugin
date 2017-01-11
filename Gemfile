@@ -6,4 +6,7 @@ end
 
 group :plugins do
   gem "my_vagrant_plugin", path: "."
+  gem "bundler", "~> 1.13"
+  gem "rake", "~> 10.0"
+  gem "rspec", "~> 3.0"
 end
