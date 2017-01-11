@@ -6,12 +6,12 @@ require 'my_vagrant_plugin/version'
 Gem::Specification.new do |spec|
   spec.name          = "my_vagrant_plugin"
   spec.version       = MyVagrantPlugin::VERSION
-  spec.authors       = ["TODO: Write your name"]
+  spec.authors       = ["Michael Pope"]
   spec.email         = ["mpope.cr@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{A step by step walkthrough to understanding how to create a plugin for Vagrant}
+  spec.description   = spec.summary
+  spec.homepage      = "https://github.com/amorphid/my_vagrant_plugin"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
