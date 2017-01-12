@@ -140,3 +140,15 @@ The default method for setting the gem version is not compatible with Vagrant co
 
     Finished in 0.00025 seconds (files took 0.28553 seconds to load)
     0 examples, 0 failures
+
+## Add a name
+
+    # A plug in has no name (and therefor can't "plug in")
+    class MyVagrantPlugin < Vagrant.plugin("2")
+      # Your code goes here...
+    end
+
+    # A name is required for Vagrant to load the plugin
+    class MyVagrantPlugin < Vagrant.plugin("2")
+      name "My Vagrant Plugin"
+    end
