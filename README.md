@@ -216,3 +216,34 @@ However, when you run the command, it doesn't yet do anything
     <outside installer warning>
 
     $
+
+## Implement command logic for executing "declare-self-potato" using "puts"
+
+Implement `declare-self-potato` by adding the `execute` method
+
+    class MyVagrantPlugin
+      class DeclareSelfPotato < Vagrant.plugin("2", :command)
+        def execute
+          # you don't wanna use puts, which we'll explore in next section
+          puts "Because I used 'puts', I am a naughty potato"
+
+          # exit code 1 (cuz puts bad in vagrant command)
+          1
+        end
+
+        class << self
+          def synopsis
+            "Declares self a potato"
+          end
+        end
+      end
+    end
+
+Now become a naughty potato
+
+    $ bundle exec vagrant declare-self-potato
+    <outside installer warning>
+
+    Because I used 'puts', I am a naughty potato
+    $ echo $?
+    1
