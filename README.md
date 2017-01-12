@@ -247,3 +247,46 @@ Now become a naughty potato
     Because I used 'puts', I am a naughty potato
     $ echo $?
     1
+
+## Refactor "declare-self-potato" to work with Vagarnt's IO model
+
+In the previous section, you were a naughty potato because you used `puts` to write to the screen.  For reasons I haven't yet taken the time to fully understand, there are times when writing directly to standard out causes problems for vagrant.  In the Vagrant documentation, the [development basics page](https://www.vagrantup.com/docs/plugins/development-basics.html), under the CONSOLE INPUT AND OUTPUT heading, says "Plugins should never use Ruby's built-in puts or gets style methods", which is contradicted on the [commands page](https://www.vagrantup.com/docs/plugins/commands.html) under the IMPLEMENTATION heading by the example which uses `puts`.
+
+Digging into the Vagrant source code a bit, it appears the path for a proper potato to follow is to the `safe_puts` command in found in [Util::SafePuts](https://github.com/mitchellh/vagrant/blob/9c299a2a357fcf87f356bb9d56e18a037a53d138/lib/vagrant/util/safe_puts.rb#L14), which is implemented in the example below.
+
+    class MyVagrantPlugin
+      class DeclareSelfPotato < Vagrant.plugin("2", :command)
+        include Vagrant::Util::SafePuts
+
+        def execute
+          safe_puts("I am a proper potato")
+          0
+        end
+
+        class << self
+          def synopsis
+            "Declares self a potato"
+          end
+        end
+      end
+    end
+
+Now become a the proper potato you've always wanted to be
+
+    $ bundle exec vagrant declare-self-potato
+    <outside installer warning>
+
+    I am a proper potato
+    mpope-mbpr15:my_vagrant_plugin mpope$ echo $?
+    0
+
+## That all folks
+
+I wanted to give a basic example of how to get started with a Vagrant plugin.  Now that you've seen how it to get started, dig through the quite excellent Vagrant docs, and figure out the rest to creating your own!
+
+If you'd like to expand the examples in this walkthrough:
+
+* Add to the README
+* Add some example code
+* Make sure the code in your final example works
+* Submit a pull request!

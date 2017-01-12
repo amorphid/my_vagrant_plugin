@@ -1,11 +1,10 @@
 class MyVagrantPlugin
   class DeclareSelfPotato < Vagrant.plugin("2", :command)
-    def execute
-      # you don't wanna use puts, which we'll explore in next section
-      puts "Because I used 'puts', I am a naughty potato"
+    include Vagrant::Util::SafePuts
 
-      # exit code 1 (cuz puts bad in vagrant command)
-      1
+    def execute
+      safe_puts("I am a proper potato")
+      0
     end
 
     class << self
