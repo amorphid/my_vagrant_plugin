@@ -153,7 +153,7 @@ The default method for setting the gem version is not compatible with Vagrant co
       name "My Vagrant Plugin"
     end
 
-## Add a command declaration
+## Add a command declaration for "declare_self_potato"
 
 First, declare the command `lib/my_vagrant_plugin.rb`
 
@@ -161,7 +161,7 @@ First, declare the command `lib/my_vagrant_plugin.rb`
       name "My Vagrant Plugin"
 
       # in case you've wanted to announce tuberousness
-      command "declare_self_potato" do
+      command "declare-self-potato" do
         require "my_vagrant_plugin/declare_self_potato"
         MyVagrantPlugin::DeclareSelfPotato
       end
@@ -179,3 +179,40 @@ Now try look for `declare_self_potato` in command list (this wil fail).  Also, y
 
     bundler: failed to load command: vagrant (/Users/mpope/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/bin/vagrant)
     LoadError: cannot load such file -- my_vagrant_plugin/declare_self_potato
+
+## Implement synopsis for "declare_self_potato"
+
+Create this following in `lib/my_vagrant_plugin/declare_self_potato`
+
+    class MyVagrantPlugin
+      class DeclareSelfPotato < Vagrant.plugin("2", :command)
+        class << self
+          def synopsis
+            "Declares self a potato"
+          end
+        end
+      end
+    end
+
+You should now see `declare-self-potato` in the command list
+
+    $ bundle exec vagrant
+    <outside installer warning>
+
+    Usage: vagrant [options] <command> [<args>]
+
+        -v, --version                    Print the version and exit.
+        -h, --help                       Print this help.
+
+    Common commands:
+         box                   manages boxes: installation, removal, etc.
+         declare-self-potato   Declares self a potato
+         destroy               stops and deletes all traces of the vagrant machine
+         # rest of output trimmed for brevity
+
+However, when you run the command, it doesn't yet do anything
+
+    $ bundle exec vagrant declare-self-potato
+    <outside installer warning>
+
+    $
