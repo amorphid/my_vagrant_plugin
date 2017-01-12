@@ -1,6 +1,6 @@
 # MyVagrantPlugin
 
-A step by step walkthrough to understanding how to create a plugin for Vagrant
+A step by step walkthrough to understanding how to create a plugin for Vagrant.
 
 ## WARNING
 
@@ -152,3 +152,30 @@ The default method for setting the gem version is not compatible with Vagrant co
     class MyVagrantPlugin < Vagrant.plugin("2")
       name "My Vagrant Plugin"
     end
+
+## Add a command declaration
+
+First, declare the command `lib/my_vagrant_plugin.rb`
+
+    class MyVagrantPlugin < Vagrant.plugin("2")
+      name "My Vagrant Plugin"
+
+      # in case you've wanted to announce tuberousness
+      command "declare_self_potato" do
+        require "my_vagrant_plugin/declare_self_potato"
+        MyVagrantPlugin::DeclareSelfPotato
+      end
+    end
+
+Now try look for `declare_self_potato` in command list (this wil fail).  Also, you'll see the `You appear to be running Vagrant outside of the official installers...` error whenever you run `bundle exec vagrant`, and from now on this walkthrough will display `<outside installer warning>`.
+
+    $ bundle exec vagrant
+    You appear to be running Vagrant outside of the official installers.
+    Note that the installers are what ensure that Vagrant has all required
+    dependencies, and Vagrant assumes that these dependencies exist. By
+    running outside of the installer environment, Vagrant may not function
+    properly. To remove this warning, install Vagrant using one of the
+    official packages from vagrantup.com.
+
+    bundler: failed to load command: vagrant (/Users/mpope/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/bin/vagrant)
+    LoadError: cannot load such file -- my_vagrant_plugin/declare_self_potato
